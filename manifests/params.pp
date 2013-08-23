@@ -6,4 +6,10 @@ class god::params {
   $log_dir         = '/var/log'
   $init_script     = '/etc/init.d/god'
   $service         = 'god'
+  $rbenv           = true
+  $rbenv_shim_path = '/usr/local/rbenv/shims'
+  $binary_path     = $rbenv ? {
+  	true    => "${rbenv_shim_path}/god",
+  	default => '/usr/bin/god'
+  }
 }

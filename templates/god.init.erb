@@ -12,12 +12,12 @@ LOG_FILE="${LOG_DIR}/god.log"
 RUN_DIR="<%= @run_dir %>"
 GLOBAL_CONFIG="<%= @global_config %>"
 PID_FILE="${RUN_DIR}/god.pid"
-PROG_BINARY="`rbenv which god`"
+PROG_BINARY="<%= @binary_path -%>"
 
 case "$1" in
     start)
-      god -P $PID_FILE -l $LOG_FILE
-      god load $GLOBAL_CONFIG
+      $PROG_BINARY -P $PID_FILE -l $LOG_FILE
+      $PROG_BINARY load $GLOBAL_CONFIG
       RETVAL=$?
       ;;
     stop)
@@ -26,12 +26,12 @@ case "$1" in
       ;;
     restart)
       kill `cat $PID_FILE`
-      god -P $PID_FILE -l $LOG_FILE
-      god load $GLOBAL_CONFIG
+      $PROG_BINARY -P $PID_FILE -l $LOG_FILE
+      $PROG_BINARY load $GLOBAL_CONFIG
       RETVAL=$?
       ;;
     status)
-      god status
+      $PROG_BINARY status
       RETVAL=$?
       ;;
     *)
