@@ -9,6 +9,7 @@ define god::service (
     ensure  => file,
     path    => "${god::params::config_dir_path}/${process_name}.god",
     mode    => 0755,
-    content => template($template)
+    content => template($template),
+    notify  => Service[$god::params::service]
   }
 }

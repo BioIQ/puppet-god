@@ -20,7 +20,8 @@ class god inherits god::params {
   file { $init_script :
     ensure   => file,
     mode     => 0755,
-    content  => template('god/god.init.erb')
+    content  => template('god/god.init.erb'),
+    notify   => Service[$service]
   }
 
   service { $service :
