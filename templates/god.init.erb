@@ -22,6 +22,12 @@ case "$1" in
       echo "Done."
       RETVAL=$?
       ;;
+    debug)
+      echo "Starting god in foregroud..."
+      $PROG_BINARY -D -c $GLOBAL_CONFIG -P $PID_FILE -l $LOG_FILE
+      echo "Done."
+      RETVAL=$?
+      ;;
     stop)
       echo "Stopping god..."
       kill `cat $PID_FILE`
