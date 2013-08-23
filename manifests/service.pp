@@ -7,9 +7,7 @@ define god::service (
 
   file { "${process_name}.god" :
     ensure  => file,
-    path    => "${config_dir_path}/${process_name}.god",
-    owner   => $user,
-    group   => $group,
+    path    => "${god::params::config_dir_path}/${process_name}.god",
     mode    => 0755,
     content => template($template)
   }
