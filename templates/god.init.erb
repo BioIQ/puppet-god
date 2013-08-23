@@ -16,22 +16,28 @@ PROG_BINARY="<%= @binary_path -%>"
 
 case "$1" in
     start)
+      echo "Starting god..."
       $PROG_BINARY -P $PID_FILE -l $LOG_FILE
       $PROG_BINARY load $GLOBAL_CONFIG
+      echo "Done."
       RETVAL=$?
       ;;
     stop)
+      echo "Stopping god..."
       kill `cat $PID_FILE`
       RETVAL=$?
+      echo "Done."
       ;;
     restart)
+      echo "Restarting god..."
       kill `cat $PID_FILE`
       $PROG_BINARY -P $PID_FILE -l $LOG_FILE
       $PROG_BINARY load $GLOBAL_CONFIG
       RETVAL=$?
+      echo "Done."
       ;;
     status)
-      $PROG_BINARY status
+      echo `$PROG_BINARY status`
       RETVAL=$?
       ;;
     *)
