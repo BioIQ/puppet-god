@@ -1,0 +1,43 @@
+#!/bin/bash
+#
+# God
+#
+# chkconfig: - 85 15
+# description: start, stop, restart, status for God
+#
+
+RETVAL=0
+LOG_DIR="<%= @log_dir %>"
+LOG_FILE="${LOG_DIR}/god.log"
+RUN_DIR="<%= @run_dir %>"
+GLOBAL_CONFIG="<%= @global_config %>"
+PID_FILE="${RUN_DIR}/god.pid"
+PROG_BINARY="`rbenv which god`"
+
+case "$1" in
+    start)
+      god -P $PID_FILE -l $LOG_FILE
+      god load $GLOBAL_CONFIG
+      RETVAL=$?
+      ;;
+    stop)
+      kill `cat $PID_FILE`
+      RETVAL=$?
+      ;;
+    restart)
+      kill `cat $PID_FILE`
+      god -P $PID_FILE -l $LOG_FILE
+      god load $GLOBAL_CONFIG
+      RETVAL=$?
+      ;;
+    status)
+      god status
+      RETVAL=$?
+      ;;
+    *)
+      echo "Usage: god {start|stop|restart|status}"
+      exit 1
+  ;;
+esac
+
+exit $RETVAL
