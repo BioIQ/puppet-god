@@ -19,14 +19,14 @@ case "$1" in
       echo "Starting god..."
       $PROG_BINARY -P $PID_FILE -l $LOG_FILE
       $PROG_BINARY load $GLOBAL_CONFIG
-      echo "Done."
       RETVAL=$?
+      echo "Done."
       ;;
     debug)
       echo "Starting god in foregroud..."
       $PROG_BINARY -D -c $GLOBAL_CONFIG -P $PID_FILE -l $LOG_FILE
-      echo "Done."
       RETVAL=$?
+      echo "Done."
       ;;
     stop)
       echo "Stopping god..."
@@ -43,11 +43,11 @@ case "$1" in
       echo "Done."
       ;;
     status)
-      echo `$PROG_BINARY status`
+      $PROG_BINARY status
       RETVAL=$?
       ;;
     *)
-      echo "Usage: god {start|stop|restart|status}"
+      echo "Usage: god {start|debug|stop|restart|status}"
       exit 1
   ;;
 esac
