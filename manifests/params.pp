@@ -12,4 +12,9 @@ class god::params {
   	true    => "${rbenv_shim_path}/god",
   	default => '/usr/bin/god'
   }
+  $god               = hiera('god')
+  $god_contact_info  = $god['notification_contacts']
+  $email_contacts    = $god_contact_info['email']
+  $campfire_contacts = $god_contact_info['campfire']
+  $prowl_contacts    = $god_contact_info['prowl']
 }
